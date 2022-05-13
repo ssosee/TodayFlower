@@ -2,5 +2,7 @@ spring:
   application:
     name: webclient
 
+#API Info
 url: "http://apis.data.go.kr"
 serviceKey: "E%2B7CccYC9NYlREOzsvHA%2B79EK5uiOUYuvQPlouIT5PkvAWC8GaZifX6utXK4UnA7%2FUPZoVAQpLfD5s7cf0MygA%3D%3D"
+
