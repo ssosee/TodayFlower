@@ -35,7 +35,7 @@ public class NihhsTodayFlowerApiController {
     public Mono<String> getTodayFlower(String month, String day) {
 
         //입력 월, 일이 없을 경우
-        if(month == null || day == null) {
+        if(month == null || day == null || month == "" || day == "") {
             LocalDateTime currentTime = LocalDateTime.now();
             month = String.format("%d", currentTime.getMonthValue());
             day = String.format("%d", currentTime.getDayOfMonth());
