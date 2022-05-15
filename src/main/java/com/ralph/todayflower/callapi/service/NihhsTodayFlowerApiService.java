@@ -1,8 +1,8 @@
-package com.ralph.todayflower.service;
+package com.ralph.todayflower.callapi.service;
 
-import com.ralph.todayflower.controller.NihhsTodayFlowerApiController;
-import com.ralph.todayflower.dto.NihhsApiResponseDetails;
-import com.ralph.todayflower.dto.NihhsTodayFlowerApiDto;
+import com.ralph.todayflower.callapi.controller.NihhsTodayFlowerApiController;
+import com.ralph.todayflower.callapi.dto.NihhsApiResponseDetails;
+import com.ralph.todayflower.callapi.dto.NihhsTodayFlowerApiDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
@@ -11,7 +11,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import reactor.core.publisher.Mono;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -42,7 +41,7 @@ public class NihhsTodayFlowerApiService {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document document =
-                    db.parse(new InputSource(new StringReader(nihhsTodayFlowerApiController.getTodayFlower(month, day).block())));
+                    db.parse(new InputSource(new StringReader(nihhsTodayFlowerApiController.getTodayFlowerByDate(month, day).block())));
             document.getDocumentElement().normalize();
 
             NodeList nList = document.getElementsByTagName("result");

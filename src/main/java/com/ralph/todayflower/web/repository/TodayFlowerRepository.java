@@ -1,7 +1,6 @@
 package com.ralph.todayflower.web.repository;
 
-import com.ralph.todayflower.dto.NihhsTodayFlowerApiDto;
-import com.ralph.todayflower.service.NihhsTodayFlowerApiService;
+import com.ralph.todayflower.callapi.service.NihhsTodayFlowerApiService;
 import com.ralph.todayflower.web.domain.TodayFlower;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -21,35 +20,35 @@ public class TodayFlowerRepository {
     /**
      * API에서 조회한 TodayFlower 저장
      */
-    public Long save(String month, String day) {
-
-        NihhsTodayFlowerApiDto nihhsTodayFlowerApiDto = nihhsTodayFlowerApiService.getTodayFlower();
-
-        TodayFlower todayFlower = TodayFlower.builder()
-                .dataNo(nihhsTodayFlowerApiDto.getDataNo())
-                .content(nihhsTodayFlowerApiDto.getContent())
-                .day(nihhsTodayFlowerApiDto.getDay())
-                .englishName(nihhsTodayFlowerApiDto.getEnglishName())
-                .fileName1(nihhsTodayFlowerApiDto.getFileName1())
-                .fileName2(nihhsTodayFlowerApiDto.getFileName2())
-                .fileName3(nihhsTodayFlowerApiDto.getFileName3())
-                .grow(nihhsTodayFlowerApiDto.getGrow())
-                .imgUrl1(nihhsTodayFlowerApiDto.getImgUrl1())
-                .imgUrl2(nihhsTodayFlowerApiDto.getImgUrl2())
-                .imgUrl3(nihhsTodayFlowerApiDto.getImgUrl3())
-                .month(nihhsTodayFlowerApiDto.getMonth())
-                .name(nihhsTodayFlowerApiDto.getName())
-                .nativePlace(nihhsTodayFlowerApiDto.getNativePlace())
-                .publishOrg(nihhsTodayFlowerApiDto.getPublishOrg())
-                .scientificName(nihhsTodayFlowerApiDto.getScientificName())
-                .use(nihhsTodayFlowerApiDto.getUse())
-                .lang(nihhsTodayFlowerApiDto.getLang())
-                .build();
-
-        em.persist(todayFlower);
-
-        return todayFlower.getId();
-    }
+//    public Long save(String month, String day) {
+//
+//        NihhsTodayFlowerApiDto nihhsTodayFlowerApiDto = nihhsTodayFlowerApiService.getTodayFlower();
+//
+//        TodayFlower todayFlower = TodayFlower.builder()
+//                .dataNo(nihhsTodayFlowerApiDto.getDataNo())
+//                .content(nihhsTodayFlowerApiDto.getContent())
+//                .day(nihhsTodayFlowerApiDto.getDay())
+//                .englishName(nihhsTodayFlowerApiDto.getEnglishName())
+//                .fileName1(nihhsTodayFlowerApiDto.getFileName1())
+//                .fileName2(nihhsTodayFlowerApiDto.getFileName2())
+//                .fileName3(nihhsTodayFlowerApiDto.getFileName3())
+//                .grow(nihhsTodayFlowerApiDto.getGrow())
+//                .imgUrl1(nihhsTodayFlowerApiDto.getImgUrl1())
+//                .imgUrl2(nihhsTodayFlowerApiDto.getImgUrl2())
+//                .imgUrl3(nihhsTodayFlowerApiDto.getImgUrl3())
+//                .month(nihhsTodayFlowerApiDto.getMonth())
+//                .name(nihhsTodayFlowerApiDto.getName())
+//                .nativePlace(nihhsTodayFlowerApiDto.getNativePlace())
+//                .publishOrg(nihhsTodayFlowerApiDto.getPublishOrg())
+//                .scientificName(nihhsTodayFlowerApiDto.getScientificName())
+//                .use(nihhsTodayFlowerApiDto.getUse())
+//                .lang(nihhsTodayFlowerApiDto.getLang())
+//                .build();
+//
+//        em.persist(todayFlower);
+//
+//        return todayFlower.getId();
+//    }
 
     /**
      * 조회

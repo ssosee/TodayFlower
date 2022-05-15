@@ -31,9 +31,9 @@ public class TodayFlowerService {
         return todayFlowerRepository.findByMonthDay(month, day);
     }
 
-    public void save(String month, String day) {
-        todayFlowerRepository.save(month, day);
-    }
+//    public void save(String month, String day) {
+//        todayFlowerRepository.save(month, day);
+//    }
 
     public List<TodayFlower> findByLang(String lang) {
         return todayFlowerRepository.findByLang(lang);

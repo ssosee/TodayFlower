@@ -1,9 +1,10 @@
-package com.ralph.todayflower.dto;
+package com.ralph.todayflower.callapi.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter
 public class NihhsTodayFlowerApiDto {
     private int dataNo;
     private String month;

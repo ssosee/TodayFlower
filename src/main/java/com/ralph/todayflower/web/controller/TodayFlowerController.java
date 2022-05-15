@@ -1,6 +1,6 @@
 package com.ralph.todayflower.web.controller;
 
-import com.ralph.todayflower.service.NihhsTodayFlowerApiService;
+import com.ralph.todayflower.callapi.service.NihhsTodayFlowerApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

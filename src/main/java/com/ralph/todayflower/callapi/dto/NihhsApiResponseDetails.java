@@ -1,9 +1,9 @@
-package com.ralph.todayflower.dto;
+package com.ralph.todayflower.callapi.dto;
 
 public enum NihhsApiResponseDetails {
     resultCode,
     resultMsg,
-    repcategory,
+    repcategory, //API 명
 
     result,
     dataNo,
