@@ -23,7 +23,7 @@
 🖥사용 기술
 
 > BackEnd
-- spring-boot
+- spring-boot, jpa
 
 > FrontEnd
 - bootstrap, thymeleaf
