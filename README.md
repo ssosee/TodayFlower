@@ -18,11 +18,9 @@
 
 
 🖥사용 기술
-- BackEnd
+> BackEnd
+- spring-boot
 
-> spring-boot
-
-- FrontEnd
-
-> bootstrap, thymeleaf
+> FrontEnd
+- bootstrap, thymeleaf
 
