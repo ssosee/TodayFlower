@@ -16,3 +16,11 @@
 3. 꽃말로 조회
 4. 꽃 이름으로 조회
 
+
+🖥사용 기술
+- BackEnd
+  spring-boot
+
+- FrontEnd
+   bootstrap, thymeleaf
+
