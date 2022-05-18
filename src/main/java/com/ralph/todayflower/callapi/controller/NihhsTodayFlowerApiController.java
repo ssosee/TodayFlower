@@ -1,5 +1,7 @@
 package com.ralph.todayflower.callapi.controller;
 
+import lombok.SneakyThrows;
+import org.apache.catalina.util.URLEncoder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +12,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.constraints.NotNull;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,7 +46,7 @@ public class NihhsTodayFlowerApiController {
         WebClient webClient = webClient(url);
 
         return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("/1390804/NihhsTodayFlowerInfo01/selectTodayFlower01")
+                .uri(uriBuilder -> uriBuilder.path("1390804/NihhsTodayFlowerInfo01/selectTodayFlower01")
                         .queryParam("serviceKey", serviceKey)
                         .queryParam("fMonth", finalMonth)
                         .queryParam("fDay", finalDay)
@@ -54,15 +57,16 @@ public class NihhsTodayFlowerApiController {
                 .bodyToMono(String.class);
     }
 
-    public Mono<String> getTodayFlowerListByFlowerLang(@NotNull String flowerLang) {
+    public Mono<String> getTodayFlowerListByFlowerLang(String flowerLang) {
 
-        //WebClient webClient = webClient(url);
-        WebClient webClient = WebClient.builder().baseUrl(url).build();
+        WebClient webClient = webClient(url);
+        String finalFlowerLang = URLEncoder.DEFAULT.encode(flowerLang, StandardCharsets.UTF_8);
+
         Mono<String> stringMono = webClient.get()
                 .uri(uriBuilder -> uriBuilder.path("1390804/NihhsTodayFlowerInfo01/selectTodayFlowerList01")
                         .queryParam("searchType", SearchType.flowLang.getValue())
-                        .queryParam("searchWord", flowerLang)
-                        .queryParam("numOfRows", 1)
+                        .queryParam("searchWord", finalFlowerLang)
+                        .queryParam("numOfRows", 366)
                         .queryParam("serviceKey", serviceKey)
                         .build())
                 .accept(MediaType.APPLICATION_ATOM_XML)
@@ -73,8 +77,6 @@ public class NihhsTodayFlowerApiController {
                 .bodyToMono(String.class);
 
 
-        System.out.println(stringMono.toString());
-
         return stringMono;
     }
 
@@ -83,7 +85,7 @@ public class NihhsTodayFlowerApiController {
         WebClient webClient = webClient(url);
 
         return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("/1390804/NihhsTodayFlowerInfo01/selectTodayFlowerView01")
+                .uri(uriBuilder -> uriBuilder.path("1390804/NihhsTodayFlowerInfo01/selectTodayFlowerView01")
                         .queryParam("dataNo", dataNo)
                         .queryParam("serviceKey", serviceKey)
                         .build())
@@ -100,7 +102,7 @@ public class NihhsTodayFlowerApiController {
     private WebClient webClient(String url) {
 
         DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(url);
-        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.TEMPLATE_AND_VALUES);
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
 
         WebClient webClient = WebClient.builder().uriBuilderFactory(factory)
                 .baseUrl(url)
