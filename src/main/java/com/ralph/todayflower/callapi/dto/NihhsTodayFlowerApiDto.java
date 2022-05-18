@@ -6,6 +6,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class NihhsTodayFlowerApiDto {
+
     private int dataNo;
     private String month;
     private String day;

@@ -20,7 +20,7 @@
     <p>
     <nav class="navbar navbar-expand-lg navbar-light bg-success bg-opacity-25">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">오늘의 꽃</a>
+            <a class="navbar-brand" href="/"><image src="/image/flower3.svg"></image> 오늘의 꽃</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,7 +36,7 @@
     </p>
 
     <div class="marketing">
-    <h1 style="align-self: center">당신을 위한 오늘의 꽃</h1>
+        <h1>당신을 위한 오늘의 꽃</h1>
         <form role="form" action="/todayFlowerByDate" th:object="${dateForm}" method="post">
             <p class="align-items-lg-center">
                 <label th:for="month" class="lead"> 월: </label>
@@ -45,7 +45,7 @@
                 <input type="text" th:field="*{day}" class="form-text" placeholder="일을 입력해주세요." style="width:35%;height:40px;font-size:80%;">
             </p>
             <div class="d-grid gap-5">
-                <button type="submit" class="btn btn-lg" style="background-color: #30a579; color: #ffffff">검 색</button>
+                <button type="submit" class="btn btn-lg" style="background-color: #30a579; color: #ffffff;">검 색</button>
             </div>
             <p th:each="todayFlower : ${todayFlower}">
                 <p th:text="${todayFlower.getMonth()}+'월 '+${todayFlower.getDay()+'일'}" class="lead"></p>
@@ -72,13 +72,13 @@
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img th:src="${todayFlower.getImgUrl1()}" class="center-pill" th:alt="${todayFlower.getFileName1()}" width="345" height="240">
+                                    <img th:src="${todayFlower.getImgUrl1()}" class="center-pill" th:alt="${todayFlower.getFileName1()}" width="349" height="257">
                                 </div>
                                 <div class="carousel-item">
-                                    <img th:src="${todayFlower.getImgUrl2()}" class="center-pill" th:alt="${todayFlower.getFileName2()}" width="345" height="240">
+                                    <img th:src="${todayFlower.getImgUrl2()}" class="center-pill" th:alt="${todayFlower.getFileName2()}" width="349" height="257">
                                 </div>
                                 <div class="carousel-item">
-                                    <img th:src="${todayFlower.getImgUrl3()}" class="center-pill" th:alt="${todayFlower.getFileName3()}" width="345" height="240">
+                                    <img th:src="${todayFlower.getImgUrl3()}" class="center-pill" th:alt="${todayFlower.getFileName3()}" width="349" height="257">
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -92,19 +92,20 @@
                         </div>
                     </div>
                 </p>
-
-                <p class="lead">
-                    <b>설명: </b> <span th:text="${todayFlower.getContent()}"></span>
-                </p>
-                <p class="lead">
-                    <b>자생지: </b> <span th:text="${todayFlower.getNativePlace()}"></span>
-                </p>
-                <p class="lead">
-                    <b>키우는 법: </b> <span th:text="${todayFlower.getGrow()}"></span>
-                </p>
-                <p class="lead" style="text-align: right">
-                    <b th:text="'출처: '+${todayFlower.getPublishOrg()}"></b>
-                </p>
+                <div class="lead">
+                    <p style="margin-top: 30px; margin-bottom: 5px;">
+                        <b>설명: </b> <p th:text="${todayFlower.getContent()}" style="margin-top: 0px"></p>
+                    </p>
+                    <p style="margin-top: 30px; margin-bottom: 5px;">
+                        <b>자생지: </b> <p th:text="${todayFlower.getNativePlace()}"></p>
+                    </p>
+                    <p style="margin-top: 30px; margin-bottom: 5px;">
+                        <b>키우는 법: </b> <p th:text="${todayFlower.getGrow()}"></p>
+                    </p>
+                    <p style="text-align: right; margin-top: 50px;">
+                        <b th:text="'출처: '+${todayFlower.getPublishOrg()}"></b>
+                    </p>
+                </div>
             </p>
         </form>
         <address class="bg-success p-2 text-dark bg-opacity-25">
