@@ -24,7 +24,7 @@ public class NihhsTodayFlowerApiControllerTest {
 //        nihhsTodayFlowerApiService.changeTodayFlowerLang("사랑");
 //        nihhsTodayFlowerApiService.getTodayFlowerByFlowerLang();
         System.out.println("금요일에 만나요 = "+nihhsTodayFlowerApiController.getTodayFlowerListByFlowerLang("사랑").block());
-        //System.out.println("목요일에 만나요 = "+nihhsTodayFlowerApiController.getTodayFlowerByDataNo(1).block());
+        System.out.println("목요일에 만나요 = "+nihhsTodayFlowerApiController.getTodayFlowerByDataNo(1).block());
         //System.out.println("신영이 잘자 = "+nihhsTodayFlowerApiController.getTodayFlowerByDate(null, null).block());
     }
 }
