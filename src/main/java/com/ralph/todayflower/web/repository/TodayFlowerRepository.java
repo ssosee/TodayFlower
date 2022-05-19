@@ -21,9 +21,9 @@ public class TodayFlowerRepository {
     /**
      * API에서 조회한 TodayFlower 저장
      */
-    public Long save(String month, String day) {
+    public Long save(int dataNo) {
 
-        NihhsTodayFlowerApiDto nihhsTodayFlowerApiDto = nihhsTodayFlowerApiService.getTodayFlowerByDate();
+        NihhsTodayFlowerApiDto nihhsTodayFlowerApiDto = nihhsTodayFlowerApiService.getTodayFlowerData(dataNo);
 
         TodayFlower todayFlower = TodayFlower.builder()
                 .dataNo(nihhsTodayFlowerApiDto.getDataNo())

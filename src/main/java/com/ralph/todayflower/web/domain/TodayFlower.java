@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 public class TodayFlower {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int dataNo;
     private String month;
@@ -21,15 +21,25 @@ public class TodayFlower {
     private String scientificName;
     private String englishName;
     private String lang;
+    @Lob
     private String content;
+    @Lob
     private String use;
+    @Lob
     private String grow;
+    @Lob
     private String nativePlace;
+    @Lob
     private String fileName1;
+    @Lob
     private String fileName2;
+    @Lob
     private String fileName3;
+    @Lob
     private String imgUrl1;
+    @Lob
     private String imgUrl2;
+    @Lob
     private String imgUrl3;
     private String publishOrg;
 
@@ -54,5 +64,9 @@ public class TodayFlower {
         this.imgUrl2 = imgUrl2;
         this.imgUrl3 = imgUrl3;
         this.publishOrg = publishOrg;
+    }
+
+    public TodayFlower() {
+
     }
 }

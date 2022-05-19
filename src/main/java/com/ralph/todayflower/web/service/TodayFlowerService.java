@@ -22,18 +22,18 @@ public class TodayFlowerService {
      * @param day
      * @return
      */
-    public TodayFlower findTodayFlower(String month, String day) {
+    public TodayFlower findByDate(String month, String day) {
         if(month == null || day == null) {
             LocalDateTime localDateTime = LocalDateTime.now();
-            month = String.format("%2d", localDateTime.getMonthValue());
-            day = String.format("%2d", localDateTime.getDayOfMonth());
+            month = String.format("%d", localDateTime.getMonthValue());
+            day = String.format("%d", localDateTime.getDayOfMonth());
         }
         return todayFlowerRepository.findByMonthDay(month, day);
     }
 
     @Transactional
-    public void save(String month, String day) {
-        todayFlowerRepository.save(month, day);
+    public void saveAll(int dataNo) {
+        todayFlowerRepository.save(dataNo);
     }
 
     public List<TodayFlower> findByLang(String lang) {

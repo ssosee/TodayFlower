@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>오늘의 꽃</title>
   <meta charset="UTF-8">
@@ -13,7 +13,58 @@
   <!-- custom styles for this template -->
   <link href="/css/jumbotron-narrow.css" rel="stylesheet">
 </head>
-<body>
+<body class="p-2 text-dark bg-opacity-10">
+<div class="container">
+
+  <p>
+  <nav class="navbar navbar-expand-lg navbar-light bg-success bg-opacity-25">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><image src="/image/flower3.svg"></image> 오늘의 꽃</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="/todayFlowerByDate">날짜로 찾기</a>
+          <a class="nav-link" href="/todayFlowerByFlowerLang">꽃말로 찾기</a>
+          <a class="nav-link" href="#">이름으로 찾기</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  </p>
+
+  <div class="marketing">
+    <h1>당신을 위한 오늘의 꽃</h1>
+    <form role="form">
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row row-cols-lg-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col" th:object="${todayFlowerByFlowerLang}">
+              <div class="card shadow-sm">
+                  <title>Placeholder</title>
+                  <image height="100%" width="100%" th:src="${todayFlowerByFlowerLang.getImgUrl1()}" th:alt="${todayFlowerByFlowerLang.getFileName1()}"></image>
+                  <rect width="100%" height="100%" fill="#55595c"/>
+                <div class="card-body">
+                  <p class="card-text">
+                    <b>꽃 이름: </b> <span th:text="${todayFlowerByFlowerLang.getName()}"></span>
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/todayFlowerByDate'">이동</button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 
 </body>
 </html>

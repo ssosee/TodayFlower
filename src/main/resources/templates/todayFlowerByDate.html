@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link" href="/todayFlowerByDate">날짜로 찾기</a>
-                    <a class="nav-link" href="#">꽃말로 찾기</a>
+                    <a class="nav-link" href="/todayFlowerByFlowerLang">꽃말로 찾기</a>
                     <a class="nav-link" href="#">이름으로 찾기</a>
                 </div>
             </div>
@@ -37,7 +37,7 @@
 
     <div class="marketing">
         <h1>당신을 위한 오늘의 꽃</h1>
-        <form role="form" action="/todayFlowerByDate" th:object="${dateForm}" method="post">
+        <form role="form" th:object="${form}" method="get">
             <p class="align-items-lg-center">
                 <label th:for="month" class="lead"> 월: </label>
                 <input type="text" th:field="*{month}" class="form-text" placeholder="월을 입력해주세요" style="width:35%;height:40px;font-size:80%;">
@@ -55,18 +55,6 @@
                 <p class="lead">
                     <b>꽃말: </b> <span th:text="${todayFlower.getLang()}"></span>
                 </p>
-<!--            <div style="text-align: center">-->
-<!--                <p>-->
-<!--                    <img id="imgId1" class="figure-img img-thumbnail" th:src="${todayFlower.getImgUrl1()}" th:alt="${todayFlower.getFileName1()}" th:if="${todayFlower.getImgUrl1() != null}" width="304" height="236"/>-->
-<!--                </p>-->
-<!--                <p>-->
-<!--                    <img id="imgId2" class="figure-img img-thumbnail" th:src="${todayFlower.getImgUrl2()}" th:alt="${todayFlower.getFileName2()}" th:if="${todayFlower.getImgUrl2() != null}" width="304" height="236" />-->
-<!--                </p>-->
-<!--                <p>-->
-<!--                    <img id="imgId3" class="figure-img img-thumbnail" th:src="${todayFlower.getImgUrl3()}" th:alt="${todayFlower.getFileName3()}" th:if="${todayFlower.getImgUrl3() != null}" width="304" height="236"/>-->
-<!--                </p>-->
-
-<!--            </div>-->
                 <p>
                     <div style="text-align: center">
                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">

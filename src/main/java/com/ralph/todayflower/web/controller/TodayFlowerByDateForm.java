@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class DateForm {
+public class TodayFlowerByDateForm {
     private String month;
     private String day;
 }
