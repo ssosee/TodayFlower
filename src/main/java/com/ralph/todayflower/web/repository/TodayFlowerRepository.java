@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -65,12 +66,21 @@ public class TodayFlowerRepository {
      * @return
      */
     public TodayFlower findByMonthDay(String month, String day) {
-        return em.createQuery("select tf from TodayFlower tf " +
-                "where tf.month = :month " +
-                "and tf.day = :day", TodayFlower.class)
-                .setParameter("month", month)
-                .setParameter("day", day)
-                .getSingleResult();
+
+        TodayFlower singleResult = null;
+
+        try {
+            singleResult = em.createQuery("select tf from TodayFlower tf " +
+                            "where tf.month = :month " +
+                            "and tf.day = :day", TodayFlower.class)
+                            .setParameter("month", month)
+                            .setParameter("day", day)
+                            .getSingleResult();
+        }
+        catch (NoResultException e) {
+            e.printStackTrace();
+        }
+        return singleResult;
     }
 
     /***

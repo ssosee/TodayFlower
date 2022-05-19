@@ -8,8 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import reactor.core.publisher.Mono;
+
+import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,26 +19,17 @@ public class TodayFlowerController {
     private final TodayFlowerService todayFlowerService;
     @GetMapping("/")
     public String index() {
+
         return "index";
     }
 
     @GetMapping("/todayFlowerByDate")
-    public String todayFlowerByDate(@ModelAttribute("form") TodayFlowerByDateForm form, Model model) {
-        //todayFlowerService.save(month, day);
+    public String todayFlowerByDate(@ModelAttribute("form") @Valid SearchTodayFlowerByDate form, Model model) {
 
+        TodayFlower todayFlower = todayFlowerService.findByDate(form.getMonth(), form.getDay());
+        model.addAttribute("todayFlower", new TodayFlowerForm(todayFlower));
 
-        //model.addAttribute("dateForm", new TodayFlowerByDateForm());
-        model.addAttribute("todayFlower", todayFlowerService.findByDate(form.getMonth(), form.getDay()));
         return "todayFlowerByDate";
-    }
-
-    @PostMapping("/todayFlowerByDate")
-    public String postTodayFlower(TodayFlowerByDateForm form) {
-
-        //dto.changeTodayFlowerDate(form.getMonth(), form.getDay());
-        todayFlowerService.findByDate(form.getMonth(), form.getDay());
-
-        return "redirect:/todayFlowerByDate";
     }
 
     @GetMapping("/todayFlowerByFlowerLang")

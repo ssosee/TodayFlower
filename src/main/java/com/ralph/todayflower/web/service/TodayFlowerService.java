@@ -28,6 +28,7 @@ public class TodayFlowerService {
             month = String.format("%d", localDateTime.getMonthValue());
             day = String.format("%d", localDateTime.getDayOfMonth());
         }
+
         return todayFlowerRepository.findByMonthDay(month, day);
     }
 
