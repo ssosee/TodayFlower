@@ -12,40 +12,56 @@
 
     <!-- custom styles for this template -->
     <link href="/css/jumbotron-narrow.css" rel="stylesheet">
-
 </head>
+
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+
 <body class="p-2 text-dark bg-opacity-10">
 <div class="container">
 
-    <p>
+    <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-success bg-opacity-25">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/"><image src="/image/flower3.svg"></image> 오늘의 꽃</a>
+            <a class="navbar-brand" href="/">&#128197; <b>오늘의 꽃</b> &#127801;</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link" href="/todayFlowerByDate">날짜로 찾기</a>
-                    <a class="nav-link" href="/todayFlowerByFlowerLang">꽃말로 찾기</a>
-                    <a class="nav-link" href="#">이름으로 찾기</a>
+                    <a class="nav-link" href="/todayFlowerByDate">&#127856; 생일로 찾기</a>
+                    <a class="nav-link" href="/todayFlowerByFlowerLang">&#128014; 꽃말로 찾기</a>
+                    <a class="nav-link" href="#">&#128219; 이름으로 찾기</a>
                 </div>
             </div>
         </div>
     </nav>
-    </p>
+    </header>
 
     <div class="marketing">
-        <h1>당신을 위한 오늘의 꽃</h1>
-        <form role="form" th:object="${form}" method="get">
-            <p class="align-items-lg-center">
-                <label th:for="month" class="lead"> 월: </label>
-                <input type="text" th:field="*{month}" class="form-text" placeholder="월을 입력해주세요" style="width:35%;height:40px;font-size:80%;">
-                <label th:for="day" class="lead"> 일: </label>
-                <input type="text" th:field="*{day}" class="form-text" placeholder="일을 입력해주세요." style="width:35%;height:40px;font-size:80%;">
-            </p>
-            <div class="d-grid gap-5">
-                <button type="submit" class="btn btn-lg" style="background-color: #30a579; color: #ffffff;">검 색</button>
+        <h1 style="margin-top: 30px;">&#127856; 생일로 찾기</h1>
+        <form role="form" th:object="${form}" method="get" action="/todayFlowerByDate?month=&day=">
+            <div class="form-grop">
+<!--                <p class="align-items-lg-center" style="text-align: center;">-->
+
+                    <label th:for="month" class="lead"> 월: </label>
+
+                    <input type="text" th:field="*{month}" class="form-control fieldError" placeholder="월을 입력해주세요."
+                           th:class="${#fields.hasErrors('month')}? 'form-control fieldError' : 'form-control'">
+                    <p th:if="${#fields.hasErrors('month')}" th:errors="*{month}">Incorrect date</p>
+
+                    <label th:for="day" class="lead" style="margin-left: 10px;"> 일: </label>
+
+                    <input type="text" th:field="*{day}" class="form-text" placeholder="일을 입력해주세요."
+                           th:class="${#fields.hasErrors('day')}? 'form-text fieldError' : 'form-text'">
+                    <p th:if="${#fields.hasErrors('day')}" th:errors="*{day}">Incorrect date</p>
+<!--                </p>-->
+                <div class="d-grid gap-5">
+                    <button type="submit" class="btn btn-lg" style="background-color: #30a579; color: #ffffff;">검 색</button>
+                </div>
             </div>
             <p th:each="todayFlower : ${todayFlower}">
                 <p th:text="${todayFlower.getMonth()}+'월 '+${todayFlower.getDay()+'일'}" class="lead"></p>
@@ -80,6 +96,7 @@
                         </div>
                     </div>
                 </p>
+
                 <div class="lead">
                     <p style="margin-top: 30px; margin-bottom: 5px;">
                         <b>설명: </b> <p th:text="${todayFlower.getContent()}" style="margin-top: 0px"></p>
@@ -94,11 +111,12 @@
                         <b th:text="'출처: '+${todayFlower.getPublishOrg()}"></b>
                     </p>
                 </div>
+
             </p>
         </form>
-        <address class="bg-success p-2 text-dark bg-opacity-25">
-            <b>Email:</b> toughsingo@gmail.com<br>
-            <b>Since: </b>2022-05<br>
+        <address class="bg-gradient p-2 text-dark bg-opacity-25">
+            <b>getEmail();</b> toughsingo@gmail.com<br>
+            <b>getSince(); </b>2022-05<br>
         </address>
     </div>
     </div>

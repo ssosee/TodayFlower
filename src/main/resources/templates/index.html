@@ -17,14 +17,53 @@
 <body>
 <div class="container">
     <div class="marketing">
-        <h1 style="align-self: center">오늘의 꽃</h1>
+        <h1 style="text-align: center; margin-bottom: 30px; margin-top: 35px;">&#128197; <b>오늘의 꽃</b> &#127801;</h1>
         <form role="form" action="/">
-            <p class="lead">꽃 찾기</p>
-            <p>
-                <a class="btn btn-lg btn-secondary" href="/todayFlowerByDate">날짜로 찾기</a>
-                <a class="btn btn-lg btn-dark" href="/todayFlowerByFlowerLang">꽃말로 찾기</a>
-            </p>
+
+            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <a href="/todayFlowerByDate">
+                            <img src="/image/birthdayCat.jpg" class="card-img-top" alt="birthday picture">
+                        </a>
+                        <div class="card-body">
+                            <h4 class="card-title"><b>생일로 찾기</b></h4>
+                            <p class="card-text">&#127856; 당신이 태어난 날..! 당신의 꽃은..?!</p>
+                            <a href="/todayFlowerByDate" class="btn btn-warning">살펴보기</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <a href="/todayFlowerByFlowerLang">
+                            <img src="/image/flowerLang.jpg" class="card-img-top" alt="lilac picture">
+                        </a>
+                        <div class="card-body">
+                            <h4 class="card-title"><b>꽃말로 찾기</b></h4>
+                            <p class="card-text">&#128014; 꽃말로 상대방에게 마음을 전달해보세요..!</p>
+                            <a href="/todayFlowerByFlowerLang" class="btn btn-success">살펴보기</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <a href="/#todayFlowerByFloweName">
+                            <img src="/image/flowerName.jpg" class="card-img-top" alt="flower shop picture">
+                        </a>
+                        <div class="card-body">
+                            <h4 class="card-title"><b>이름으로 찾기</b></h4>
+                            <p class="card-text">&#128219; 꽃이름을 기억하고 계신가요?</p>
+                            <a href="/#todayFlowerByFloweName" class="btn btn-primary">살펴보기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </form>
+        <address class="bg-gradient p-2 text-dark bg-opacity-25" style="margin-top: 30px;">
+            <b>getEmail();</b> toughsingo@gmail.com<br>
+            <b>getSince(); </b>2022-05<br>
+        </address>
     </div>
 </div>
 </body>

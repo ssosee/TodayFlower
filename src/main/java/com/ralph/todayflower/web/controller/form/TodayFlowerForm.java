@@ -1,4 +1,4 @@
-package com.ralph.todayflower.web.controller;
+package com.ralph.todayflower.web.controller.form;
 
 import com.ralph.todayflower.web.domain.TodayFlower;
 import lombok.Getter;
