@@ -1,7 +1,10 @@
 package com.ralph.todayflower.web.repository;
 
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ralph.todayflower.callapi.dto.NihhsTodayFlowerApiDto;
 import com.ralph.todayflower.callapi.service.NihhsTodayFlowerApiService;
+import com.ralph.todayflower.web.domain.QTodayFlower;
 import com.ralph.todayflower.web.domain.TodayFlower;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -25,27 +28,8 @@ public class TodayFlowerRepository {
     public Long save(int dataNo) {
 
         NihhsTodayFlowerApiDto nihhsTodayFlowerApiDto = nihhsTodayFlowerApiService.getTodayFlowerData(dataNo);
-
-        TodayFlower todayFlower = TodayFlower.builder()
-                .dataNo(nihhsTodayFlowerApiDto.getDataNo())
-                .content(nihhsTodayFlowerApiDto.getContent())
-                .day(nihhsTodayFlowerApiDto.getDay())
-                .englishName(nihhsTodayFlowerApiDto.getEnglishName())
-                .fileName1(nihhsTodayFlowerApiDto.getFileName1())
-                .fileName2(nihhsTodayFlowerApiDto.getFileName2())
-                .fileName3(nihhsTodayFlowerApiDto.getFileName3())
-                .grow(nihhsTodayFlowerApiDto.getGrow())
-                .imgUrl1(nihhsTodayFlowerApiDto.getImgUrl1())
-                .imgUrl2(nihhsTodayFlowerApiDto.getImgUrl2())
-                .imgUrl3(nihhsTodayFlowerApiDto.getImgUrl3())
-                .month(nihhsTodayFlowerApiDto.getMonth())
-                .name(nihhsTodayFlowerApiDto.getName())
-                .nativePlace(nihhsTodayFlowerApiDto.getNativePlace())
-                .publishOrg(nihhsTodayFlowerApiDto.getPublishOrg())
-                .scientificName(nihhsTodayFlowerApiDto.getScientificName())
-                .use(nihhsTodayFlowerApiDto.getUse())
-                .lang(nihhsTodayFlowerApiDto.getLang())
-                .build();
+        TodayFlower todayFlower = new TodayFlower();
+        todayFlower.changeTodayFlower(nihhsTodayFlowerApiDto);
 
         em.persist(todayFlower);
 
@@ -98,12 +82,32 @@ public class TodayFlowerRepository {
      * @return
      */
     public List<TodayFlower> findByLang(String lang) {
-        return em.createQuery("select tf from TodayFlower tf " +
-                "where tf.lang like :lang", TodayFlower.class)
-                .setParameter("lang", lang)
-                .getResultList();
+
+        JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(em);
+        QTodayFlower qTodayFlower = QTodayFlower.todayFlower;
+
+        return jpaQueryFactory
+                .selectFrom(qTodayFlower)
+                .where(qTodayFlower.lang.contains(lang))
+                .orderBy(qTodayFlower.dataNo.desc())
+                .fetch();
     }
 
+    /***
+     * 이름으로 조회
+     * @param name
+     * @return
+     */
+    public List<TodayFlower> findByName(String name) {
 
+        JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(em);
+        QTodayFlower qTodayFlower = QTodayFlower.todayFlower;
+
+        return jpaQueryFactory
+                .selectFrom(qTodayFlower)
+                .where(qTodayFlower.name.contains(name))
+                .orderBy(qTodayFlower.dataNo.desc())
+                .fetch();
+    }
 
 }

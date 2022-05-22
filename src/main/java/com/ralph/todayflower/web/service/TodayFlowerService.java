@@ -5,8 +5,10 @@ import com.ralph.todayflower.web.repository.TodayFlowerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,6 +40,20 @@ public class TodayFlowerService {
     }
 
     public List<TodayFlower> findByLang(String lang) {
-        return todayFlowerRepository.findByLang(lang);
+
+        if(StringUtils.hasText(lang)) {
+            return todayFlowerRepository.findByLang(lang);
+        }
+
+        List<TodayFlower> todayFlowerList = new ArrayList<>();
+        TodayFlower todayFlower = new TodayFlower();
+        todayFlower.defaultTodayFlower(0, "/image/나태주.png", "풀꽃(나태주)", "자세히 봐야 이쁘다.\n오래보아야 사랑스럽다.\n너도 그렇다.");
+        todayFlowerList.add(todayFlower);
+
+        return todayFlowerList;
+    }
+
+    public List<TodayFlower> findByName(String name) {
+        return todayFlowerRepository.findByName(name);
     }
 }

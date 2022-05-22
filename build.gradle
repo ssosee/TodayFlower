@@ -27,6 +27,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     compileOnly 'org.projectlombok:lombok'
 
+    // QueryDSL
+    implementation "com.querydsl:querydsl-jpa"
+    annotationProcessor(
+            "javax.persistence:javax.persistence-api",
+            "javax.annotation:javax.annotation-api",
+            "com.querydsl:querydsl-apt:5.0.0:jpa")
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
 
@@ -34,6 +41,16 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     //testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux-test'
 }
+
+// QueryDSL
+sourceSets {
+    main {
+        java {
+            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
+        }
+    }
+}
+
 
 tasks.named('test') {
     useJUnitPlatform()

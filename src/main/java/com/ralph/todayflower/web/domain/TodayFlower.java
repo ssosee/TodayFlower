@@ -1,5 +1,6 @@
 package com.ralph.todayflower.web.domain;
 
+import com.ralph.todayflower.callapi.dto.NihhsTodayFlowerApiDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -29,44 +30,39 @@ public class TodayFlower {
     private String grow;
     @Lob
     private String nativePlace;
-    @Lob
     private String fileName1;
-    @Lob
     private String fileName2;
-    @Lob
     private String fileName3;
-    @Lob
     private String imgUrl1;
-    @Lob
     private String imgUrl2;
-    @Lob
     private String imgUrl3;
     private String publishOrg;
 
-    @Builder
-    public TodayFlower(Long id, int dataNo, String month, String day, String name, String scientificName, String englishName, String lang, String content, String use, String grow, String nativePlace, String fileName1, String fileName2, String fileName3, String imgUrl1, String imgUrl2, String imgUrl3, String publishOrg) {
-        this.id = id;
-        this.dataNo = dataNo;
-        this.month = month;
-        this.day = day;
-        this.name = name;
-        this.scientificName = scientificName;
-        this.englishName = englishName;
-        this.lang = lang;
-        this.content = content;
-        this.use = use;
-        this.grow = grow;
-        this.nativePlace = nativePlace;
-        this.fileName1 = fileName1;
-        this.fileName2 = fileName2;
-        this.fileName3 = fileName3;
-        this.imgUrl1 = imgUrl1;
-        this.imgUrl2 = imgUrl2;
-        this.imgUrl3 = imgUrl3;
-        this.publishOrg = publishOrg;
+    public void changeTodayFlower(NihhsTodayFlowerApiDto dto) {
+        this.dataNo = dto.getDataNo();
+        this.month = dto.getMonth();
+        this.day = dto.getDay();
+        this.name = dto.getName();
+        this.scientificName = dto.getScientificName();
+        this.englishName = dto.getEnglishName();
+        this.lang = dto.getLang();
+        this.content = dto.getContent();
+        this.use = dto.getUse();
+        this.grow = dto.getGrow();
+        this.nativePlace = dto.getNativePlace();
+        this.fileName1 = dto.getFileName1();
+        this.fileName2 = dto.getFileName2();
+        this.fileName3 = dto.getFileName3();
+        this.imgUrl1 = dto.getImgUrl1();
+        this.imgUrl2 = dto.getImgUrl2();
+        this.imgUrl3 = dto.getImgUrl3();
+        this.publishOrg = dto.getPublishOrg();
     }
 
-    public TodayFlower() {
-
+    public void defaultTodayFlower(int dataNo, String imgUrl1, String name, String lang) {
+        this.dataNo = dataNo;
+        this.imgUrl1 = imgUrl1;
+        this.name = name;
+        this.lang = lang;
     }
 }
