@@ -22,8 +22,8 @@
 🖥사용 기술
 
 > BackEnd
-- spring-boot, jpa
+- spring-boot, jpa, Querydsl
 
 > FrontEnd
-- bootstrap, thymeleaf
+- thymeleaf, bootstrap
 
