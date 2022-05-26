@@ -7,6 +7,8 @@ import com.ralph.todayflower.web.controller.form.TodayFlowerForm;
 import com.ralph.todayflower.web.domain.TodayFlower;
 import com.ralph.todayflower.web.service.TodayFlowerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -48,7 +51,9 @@ public class TodayFlowerController {
             return "todayFlowerByFlowerLang";
         }
 
-        model.addAttribute("todayFlowerByFlowerLang", todayFlowerService.findByLang(form.getLang()));
+        List<TodayFlower> todayFlowerPage = todayFlowerService.findByLang(form.getLang());
+
+        model.addAttribute("todayFlowerByFlowerLang", todayFlowerPage);
 
         return "todayFlowerByFlowerLang";
     }

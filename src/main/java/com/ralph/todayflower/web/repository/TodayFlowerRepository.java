@@ -7,6 +7,9 @@ import com.ralph.todayflower.callapi.service.NihhsTodayFlowerApiService;
 import com.ralph.todayflower.web.domain.QTodayFlower;
 import com.ralph.todayflower.web.domain.TodayFlower;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -89,9 +92,12 @@ public class TodayFlowerRepository {
         return jpaQueryFactory
                 .selectFrom(qTodayFlower)
                 .where(qTodayFlower.lang.contains(lang))
+                .offset(0)
+                .limit(10)
                 .orderBy(qTodayFlower.dataNo.desc())
                 .fetch();
     }
+
 
     /***
      * 이름으로 조회
