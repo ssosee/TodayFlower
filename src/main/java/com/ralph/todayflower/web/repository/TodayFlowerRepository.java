@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -92,10 +93,29 @@ public class TodayFlowerRepository {
         return jpaQueryFactory
                 .selectFrom(qTodayFlower)
                 .where(qTodayFlower.lang.contains(lang))
-                .offset(0)
-                .limit(10)
                 .orderBy(qTodayFlower.dataNo.desc())
                 .fetch();
+    }
+    public Page<TodayFlower> findByLangPage(Pageable pageable, String lang) {
+
+        JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(em);
+        QTodayFlower qTodayFlower = QTodayFlower.todayFlower;
+
+        List<TodayFlower> result = jpaQueryFactory
+                .selectFrom(qTodayFlower)
+                .where(qTodayFlower.lang.contains(lang))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(qTodayFlower.dataNo.desc())
+                .fetch();
+
+        int count = jpaQueryFactory
+                .select(qTodayFlower.dataNo.count())
+                .from(qTodayFlower)
+                .where(qTodayFlower.lang.contains(lang))
+                .fetch().size();
+
+        return new PageImpl<>(result, pageable, count);
     }
 
 

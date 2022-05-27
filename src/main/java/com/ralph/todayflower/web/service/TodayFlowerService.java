@@ -56,6 +56,23 @@ public class TodayFlowerService {
         return todayFlowerList;
     }
 
+    public Page<TodayFlower> findByLangPage(Pageable pageable, String lang) {
+
+        if(!StringUtils.hasText(lang)) {
+//            List<TodayFlower> todayFlowerList = new ArrayList<>();
+//            TodayFlower todayFlower = new TodayFlower();
+//            todayFlower.defaultTodayFlower(0, "/image/나태주.png", "풀꽃(나태주)", "자세히 봐야 이쁘다.\n오래보아야 사랑스럽다.\n너도 그렇다.");
+//            todayFlowerList.add(todayFlower);
+//
+//            Page<TodayFlower> todayFlowerPage = (Page<TodayFlower>) todayFlowerList;
+//
+
+            return todayFlowerRepository.findByLangPage(pageable, "사랑");
+        }
+
+        return todayFlowerRepository.findByLangPage(pageable, lang);
+    }
+
     public List<TodayFlower> findByName(String name) {
         return todayFlowerRepository.findByName(name);
     }

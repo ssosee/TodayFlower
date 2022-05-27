@@ -61,7 +61,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr th:each="byLang : ${todayFlowerByFlowerLang}">
+              <tr th:each="byLang : ${todayflowerByFlowerLang}">
                 <td th:text="${byLang.getDataNo()}"></td>
                 <td style="text-align: center"><img th:src="${byLang.getImgUrl1()}" style="width: 95%;"></td>
                 <td th:text="${byLang.getName()}"></td>
@@ -73,24 +73,40 @@
           </div>
 
         </div>
-
-        <nav aria-label="Page navigation example" style="text-align: center" class="col-6 d-flex justify-content-center">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <!-- Pagination -->
+        <div class="row">
+          <div class="col-3">
+            <nav aria-label="Page navigation example" style="text-align: center" class="col-6 d-flex justify-content-center">
+              <ul class="pagination"
+                  th:with="startNum=${T(java.lang.Math).floor(todayflowerByFlowerLang.number/5)+1}
+                       , endNum=(${todayflowerByFlowerLang.totalPages} > ${startNum}+9 ? ${startNum}+9 : ${todayflowerByFlowerLang.totalPages})">
+                <li class="page-item">
+                  <a class="page-link" href="/todayFlowerByFlowerLang/list?page=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" th:style="${todayflowerByFlowerLang.first} ? 'display:none'">
+                  <a class="page-link" th:href="@{/todayFlowerByFlowerLang/(page=${todayflowerByFlowerLang.number})}">&lsaquo;</a>
+                </li>
+                <li class="page-item"
+                    th:each="page :${#numbers.sequence(startNum, endNum)}"
+                    th:class="(${page} == ${todayflowerByFlowerLang.number}+1) ? 'active'">
+                  <a class="page-link" th:href="@{/todayFlowerByFlowerLang/(page=${todayflowerByFlowerLang})}" th:text="${page}"></a>
+                </li>
+                <li class="page-item" th:style="${todayflowerByFlowerLang.last} ? 'display:none'">
+                  <a class="page-link" th:href="@{/todayFlowerByFlowerLang/(page=${todayflowerByFlowerLang.number}+2)}">&rsaquo;</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Next"
+                     th:href="@{/todayFlowerByFlowerLang/(page=${todayflowerByFlowerLang.totalPages})}"
+                  >&raquo;
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- Pagination -->
 
       </form>
     </div>

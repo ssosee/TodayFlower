@@ -44,16 +44,19 @@ public class TodayFlowerController {
     }
 
     @GetMapping("/todayFlowerByFlowerLang")
-    public String getTodayFlowerByFlowerLang(@ModelAttribute("form") @Valid SearchFromTodayFlowerByLang form,
+    public String getTodayFlowerByFlowerLang(@ModelAttribute("form") @Valid SearchFromTodayFlowerByLang form, Pageable pageable,
                                              Model model, BindingResult result) {
 
         if(result.hasErrors()) {
             return "todayFlowerByFlowerLang";
         }
 
-        List<TodayFlower> todayFlowerPage = todayFlowerService.findByLang(form.getLang());
+//        List<TodayFlower> todayFlowerPage = todayFlowerService.findByLang(form.getLang());
+//
+//        model.addAttribute("todayFlowerByFlowerLang", todayFlowerPage);
 
-        model.addAttribute("todayFlowerByFlowerLang", todayFlowerPage);
+        Page<TodayFlower> todayFlowerPage = todayFlowerService.findByLangPage(pageable, form.getLang());
+        model.addAttribute("todayflowerByFlowerLang", todayFlowerPage);
 
         return "todayFlowerByFlowerLang";
     }
