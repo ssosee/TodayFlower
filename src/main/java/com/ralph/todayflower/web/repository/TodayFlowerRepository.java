@@ -7,6 +7,7 @@ import com.ralph.todayflower.callapi.service.NihhsTodayFlowerApiService;
 import com.ralph.todayflower.web.domain.QTodayFlower;
 import com.ralph.todayflower.web.domain.TodayFlower;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class TodayFlowerRepository {
 
     @PersistenceContext
@@ -106,16 +108,18 @@ public class TodayFlowerRepository {
                 .where(qTodayFlower.lang.contains(lang))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(qTodayFlower.dataNo.desc())
+                .orderBy(qTodayFlower.dataNo.asc())
                 .fetch();
 
-        int count = jpaQueryFactory
-                .select(qTodayFlower.dataNo.count())
+        List<TodayFlower> count = jpaQueryFactory
+                .select(qTodayFlower)
                 .from(qTodayFlower)
                 .where(qTodayFlower.lang.contains(lang))
-                .fetch().size();
+                .fetch();
 
-        return new PageImpl<>(result, pageable, count);
+        log.info("count = "+count.size());
+
+        return new PageImpl<>(result, pageable, count.size());
     }
 
 

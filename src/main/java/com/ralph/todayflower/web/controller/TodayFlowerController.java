@@ -7,8 +7,11 @@ import com.ralph.todayflower.web.controller.form.TodayFlowerForm;
 import com.ralph.todayflower.web.domain.TodayFlower;
 import com.ralph.todayflower.web.service.TodayFlowerService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +24,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class TodayFlowerController {
     private final NihhsTodayFlowerApiService dto;
     private final TodayFlowerService todayFlowerService;
@@ -44,9 +48,11 @@ public class TodayFlowerController {
     }
 
     @GetMapping("/todayFlowerByFlowerLang")
-    public String getTodayFlowerByFlowerLang(@ModelAttribute("form") @Valid SearchFromTodayFlowerByLang form, Pageable pageable,
+    public String getTodayFlowerByFlowerLang(@ModelAttribute("form") @Valid SearchFromTodayFlowerByLang form,
+                                             @PageableDefault(page = 0, size = 5) Pageable pageable,
                                              Model model, BindingResult result) {
 
+        log.info("[GET] getTodayFlowerByFlowerLang");
         if(result.hasErrors()) {
             return "todayFlowerByFlowerLang";
         }
@@ -56,7 +62,7 @@ public class TodayFlowerController {
 //        model.addAttribute("todayFlowerByFlowerLang", todayFlowerPage);
 
         Page<TodayFlower> todayFlowerPage = todayFlowerService.findByLangPage(pageable, form.getLang());
-        model.addAttribute("todayflowerByFlowerLang", todayFlowerPage);
+        model.addAttribute("todayFlowerByFlowerLang", todayFlowerPage);
 
         return "todayFlowerByFlowerLang";
     }

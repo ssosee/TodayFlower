@@ -67,7 +67,7 @@ public class TodayFlowerService {
 //            Page<TodayFlower> todayFlowerPage = (Page<TodayFlower>) todayFlowerList;
 //
 
-            return todayFlowerRepository.findByLangPage(pageable, "사랑");
+            return todayFlowerRepository.findByLangPage(pageable, "");
         }
 
         return todayFlowerRepository.findByLangPage(pageable, lang);
