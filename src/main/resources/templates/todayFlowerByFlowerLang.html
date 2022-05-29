@@ -63,7 +63,11 @@
               <tbody>
               <tr th:each="byLang : ${todayFlowerByFlowerLang}">
                 <td th:text="${byLang.getDataNo()}"></td>
-                <td style="text-align: center"><img th:src="${byLang.getImgUrl1()}" style="width: 95%;"></td>
+                <td style="text-align: center">
+                  <a th:href="'/todayFlowerByDate?month=' + ${byLang.getMonth()} + '&day='+${byLang.getDay()}">
+                    <img th:src="${byLang.getImgUrl1()}" style="width: 95%;">
+                  </a>
+                </td>
                 <td th:text="${byLang.getName()}"></td>
                 <td th:text="${byLang.getLang()}"></td>
               </tr>
@@ -74,72 +78,52 @@
 
         </div>
         <!-- Pagination -->
-<!--            <nav aria-label="Page navigation example" style="text-align: center" class="justify-content-center">-->
-<!--              <ul class="pagination"-->
-<!--                  th:with="startNum=${T(java.lang.Math).floor(todayflowerByFlowerLang.number/20)+1}-->
-<!--                       , endNum=(${todayflowerByFlowerLang.totalPages} > ${startNum}+9 ? ${startNum}+9 : ${todayflowerByFlowerLang.totalPages})">-->
-<!--                <li class="page-item">-->
-<!--                  <a class="page-link" href="/todayFlowerByFlowerLang/list?page=1" aria-label="Previous">-->
-<!--                    <span aria-hidden="true">&laquo;</span>-->
-<!--                  </a>-->
-<!--                </li>-->
-<!--                <li class="page-item" th:style="${todayflowerByFlowerLang.first} ? 'display:none'">-->
-<!--                  <a class="page-link" th:href="@{/todayFlowerByFlowerLang/(page=${todayflowerByFlowerLang.number})}">&lsaquo;</a>-->
-<!--                </li>-->
-<!--                <li class="page-item"-->
-<!--                    th:each="page :${#numbers.sequence(startNum, endNum)}"-->
-<!--                    th:class="(${page} == ${todayflowerByFlowerLang.number}+1) ? 'active'">-->
-<!--                  <a class="page-link" th:href="@{/todayFlowerByFlowerLang/(page=${todayflowerByFlowerLang})}" th:text="${page}"></a>-->
-<!--                </li>-->
-<!--                <li class="page-item" th:style="${todayflowerByFlowerLang.last} ? 'display:none'">-->
-<!--                  <a class="page-link" th:href="@{/todayFlowerByFlowerLang/(page=${todayflowerByFlowerLang.number}+2)}">&rsaquo;</a>-->
-<!--                </li>-->
-<!--                <li class="page-item">-->
-<!--                  <a class="page-link" href="#" aria-label="Next"-->
-<!--                     th:href="@{/todayFlowerByFlowerLang/(page=${todayflowerByFlowerLang.totalPages})}"-->
-<!--                  >&raquo;-->
-<!--                  </a>-->
-<!--                </li>-->
-<!--              </ul>-->
-<!--            </nav>-->
         <div th:if="${!todayFlowerByFlowerLang.isEmpty()}">
           <nav
                   th:with="
                 pageNumber = ${todayFlowerByFlowerLang.pageable.pageNumber},
                 pageSize = ${todayFlowerByFlowerLang.pageable.pageSize},
-                totalPages = ${todayFlowerByFlowerLang.totalPages},
-                startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
+                totalPages = ${todayFlowerByFlowerLang.totalElements/pageSize},
+                pageOffsett = ${pageNumber*pageSize},
+                startPage =  ${pageNumber % pageSize == 0 ? T(java.lang.Math).floor((pageNumber - 1) / pageSize) * pageSize + 1 : T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
                 tempEndPage = ${startPage + pageSize - 1},
                 endPage = (${tempEndPage > totalPages ? totalPages : tempEndPage})"
                   aria-label="Page navigation"
           >
+<!--            <p th:text="${'pageNumber '+pageNumber}"></p>-->
+<!--            <p th:text="${'pageSize '+pageSize}"></p>-->
+<!--            <p th:text="${'startPage '+startPage}"></p>-->
+<!--            <p th:text="${'tempEndPage '+tempEndPage}"></p>-->
+<!--            <p th:text="${'totalPages '+totalPages}"></p>-->
+<!--            <p th:text="${'endPage '+endPage}"></p>-->
             <ul class="pagination ">
-
-              <li th:classappend="${pageNumber + 1 <= pageSize + 1} ? 'disabled'" class="page-item">
-                <a class="page-link" th:href="@{/todayFlowerByFlowerLang(page=1)}">
+              <!-- 처음 페이지 -->
+              <li th:classappend="${pageNumber <= pageSize } ? 'disabled'" class="page-item">
+                <a class="page-link" th:href="@{/todayFlowerByFlowerLang(lang=${form.getLang()}, page=1)}">
                   <span>&laquo;</span>
                 </a>
               </li>
-
-              <li th:classappend="${todayFlowerByFlowerLang.first} ? 'disabled'" class="page-item">
-                <a class="page-link" th:href="${todayFlowerByFlowerLang.first} ? @{/todayFlowerByFlowerLang(page=${page})} : @{/todayFlowerByFlowerLang(page=${#numbers.formatDecimal(startPage - pageSize, 0, -1)})}" aria-label="Previous">
+              <!-- 이전 페이지 목록의 첫번째-->
+              <li th:classappend="${pageNumber <= pageSize} ? 'disabled'" class="page-item">
+                <a class="page-link"
+                   th:href="@{/todayFlowerByFlowerLang(lang=${form.getLang()}, page=${#numbers.formatDecimal(startPage - pageSize, 0, -1)})}" aria-label="Previous">
                   <!-- 개인적으로 int 로 변환하는 법을 몰라서 이렇게 길어졌습니다 -->
                   <span aria-hidden="true">&lt;</span>
                 </a>
               </li>
-
-              <li th:each="page: ${#numbers.sequence(startPage, endPage)}" th:classappend="${page + 1 == pageNumber + 1} ? 'active'" class="page-item">
-                <a th:text="${page}" class="page-link" th:href="@{/todayFlowerByFlowerLang(page=${page})}"></a>
+              <!-- 페이지 번호 -->
+              <li th:each="page: ${#numbers.sequence(startPage, endPage)}" th:classappend="${page == pageNumber} ? 'active'" class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{/todayFlowerByFlowerLang(lang=${form.getLang()}, page=${page})}"></a>
               </li>
-
+              <!-- 다음 페이지 목록의 첫번째-->
               <li th:classappend="${todayFlowerByFlowerLang.last} ? 'disabled'" class="page-item">
-                <a class="page-link" th:href="${todayFlowerByFlowerLang.last} ? '#' : @{/todayFlowerByFlowerLang(page=${#numbers.formatDecimal(startPage + pageSize, 0, -1)})}" aria-label="Next">
+                <a class="page-link" th:href="@{/todayFlowerByFlowerLang(lang=${form.getLang()}, page=${#numbers.formatDecimal(startPage + pageSize, 0, -1)})}" aria-label="Next">
                   <span aria-hidden="true">&gt;</span>
                 </a>
               </li>
-
-              <li th:classappend=" ${T(java.lang.Math).floor(totalPages/10)*10 <= startPage} ? 'disabled'" class="page-item">
-                <a class="page-link" th:href="@{/todayFlowerByFlowerLang(page=${totalPages})}">
+              <!-- 마지막 페이지 -->
+              <li th:classappend=" ${T(java.lang.Math).floor(totalPages/5)*5 <= startPage} ? 'disabled'" class="page-item">
+                <a class="page-link" th:href="@{/todayFlowerByFlowerLang(lang=${form.getLang()}, page=${totalPages})}">
                   <span>&raquo;</span>
                 </a>
               </li>
@@ -148,7 +132,6 @@
           </nav>
         </div>
         <!-- Pagination -->
-
       </form>
     </div>
   </div>

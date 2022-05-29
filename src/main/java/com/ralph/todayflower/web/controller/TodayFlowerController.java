@@ -49,10 +49,16 @@ public class TodayFlowerController {
 
     @GetMapping("/todayFlowerByFlowerLang")
     public String getTodayFlowerByFlowerLang(@ModelAttribute("form") @Valid SearchFromTodayFlowerByLang form,
-                                             @PageableDefault(page = 0, size = 5) Pageable pageable,
+                                             @PageableDefault(size = 5) Pageable pageable,
                                              Model model, BindingResult result) {
 
         log.info("[GET] getTodayFlowerByFlowerLang");
+
+        log.info("getPageNumber = "+pageable.getPageNumber());
+        log.info("getOffset = "+pageable.getOffset());
+        log.info("getPageSize = "+pageable.getPageSize());
+        log.info("page = "+pageable.toString());
+
         if(result.hasErrors()) {
             return "todayFlowerByFlowerLang";
         }

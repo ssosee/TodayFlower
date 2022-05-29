@@ -103,10 +103,13 @@ public class TodayFlowerRepository {
         JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(em);
         QTodayFlower qTodayFlower = QTodayFlower.todayFlower;
 
+        //뷰에서 page[1]을 누르면 offset[0]부터 하도록 함.
+        long offset = pageable.getOffset() <= 0 ? pageable.getOffset(): pageable.getOffset() - 5;
+
         List<TodayFlower> result = jpaQueryFactory
                 .selectFrom(qTodayFlower)
                 .where(qTodayFlower.lang.contains(lang))
-                .offset(pageable.getOffset())
+                .offset(offset) //offset == pageSize
                 .limit(pageable.getPageSize())
                 .orderBy(qTodayFlower.dataNo.asc())
                 .fetch();
@@ -116,8 +119,6 @@ public class TodayFlowerRepository {
                 .from(qTodayFlower)
                 .where(qTodayFlower.lang.contains(lang))
                 .fetch();
-
-        log.info("count = "+count.size());
 
         return new PageImpl<>(result, pageable, count.size());
     }
