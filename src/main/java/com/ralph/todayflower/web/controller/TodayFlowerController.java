@@ -49,7 +49,7 @@ public class TodayFlowerController {
 
     @GetMapping("/todayFlowerByFlowerLang")
     public String getTodayFlowerByFlowerLang(@ModelAttribute("form") @Valid SearchFromTodayFlowerByLang form,
-                                             @PageableDefault(size = 5) Pageable pageable,
+                                             Pageable pageable,
                                              Model model, BindingResult result) {
 
         log.info("[GET] getTodayFlowerByFlowerLang");
@@ -69,6 +69,7 @@ public class TodayFlowerController {
 
         Page<TodayFlower> todayFlowerPage = todayFlowerService.findByLangPage(pageable, form.getLang());
         model.addAttribute("todayFlowerByFlowerLang", todayFlowerPage);
+        model.addAttribute("todayFlowerByFlowerLangCount", todayFlowerPage.getTotalPages());
 
         return "todayFlowerByFlowerLang";
     }

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
@@ -104,12 +105,20 @@ public class TodayFlowerRepository {
         QTodayFlower qTodayFlower = QTodayFlower.todayFlower;
 
         //뷰에서 page[1]을 누르면 offset[0]부터 하도록 함.
-        long offset = pageable.getOffset() <= 0 ? pageable.getOffset(): pageable.getOffset() - 5;
+        //뷰에 보이는 page는 1부터, 쿼리는 0부터
+        int page = (pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 5);
+
+        log.info("offset = "+pageable.getOffset());
+        log.info("pageSize = "+pageable.getPageSize());
+        log.info("pageNumber = "+pageable.getPageNumber());
+        log.info("page = "+page);
+
 
         List<TodayFlower> result = jpaQueryFactory
                 .selectFrom(qTodayFlower)
                 .where(qTodayFlower.lang.contains(lang))
-                .offset(offset) //offset == pageSize
+                .offset(pageable.getOffset()) //offset == pageSize
                 .limit(pageable.getPageSize())
                 .orderBy(qTodayFlower.dataNo.asc())
                 .fetch();
