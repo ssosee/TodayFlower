@@ -63,13 +63,9 @@ public class TodayFlowerController {
             return "todayFlowerByFlowerLang";
         }
 
-//        List<TodayFlower> todayFlowerPage = todayFlowerService.findByLang(form.getLang());
-//
-//        model.addAttribute("todayFlowerByFlowerLang", todayFlowerPage);
 
         Page<TodayFlower> todayFlowerPage = todayFlowerService.findByLangPage(pageable, form.getLang());
         model.addAttribute("todayFlowerByFlowerLang", todayFlowerPage);
-        model.addAttribute("todayFlowerByFlowerLangCount", todayFlowerPage.getTotalPages());
 
         return "todayFlowerByFlowerLang";
     }
