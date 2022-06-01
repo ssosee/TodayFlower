@@ -20,14 +20,17 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-success bg-opacity-25">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">&#128197; <b>오늘의 꽃</b> &#127801;</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                aria-expanded="false" aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-link" href="/todayFlowerByDate">&#127856; 생일로 찾기</a>
             <a class="nav-link" href="/todayFlowerByFlowerLang">&#128014; 꽃말로 찾기</a>
-            <a class="nav-link" href="#">&#128219; 이름으로 찾기</a>
+            <a class="nav-link" href="/todayFlowerByFlowerName">&#128219; 이름으로 찾기</a>
           </div>
         </div>
       </div>
@@ -83,29 +86,29 @@
                     last=(${start + 4 < todayFlowerByFlowerLang.totalPages ? start + 4 : todayFlowerByFlowerLang.totalPages})">
             <!-- 첫페이지 -->
             <li class="page-item">
-              <a th:href="@{/todayFlowerByFlowerLang(page=1)}" aria-label="First" class="page-link">
+              <a th:href="@{/todayFlowerByFlowerLang(lang=${form.lang}, page=1)}" aria-label="First" class="page-link">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
             <!-- 이전 페이지 -->
             <li th:classappend="${todayFlowerByFlowerLang.first} ? 'disabled'" class="page-item">
-              <a th:href="${todayFlowerByFlowerLang.first} ? '#' :@{/todayFlowerByFlowerLang(page=${todayFlowerByFlowerLang.number})}" aria-label="Previous" class="page-link">
+              <a th:href="${todayFlowerByFlowerLang.first} ? '#' :@{/todayFlowerByFlowerLang(lang=${form.lang}, page=${todayFlowerByFlowerLang.number})}" aria-label="Previous" class="page-link">
                 <span aria-hidden="true">&lt;</span>
               </a>
             </li>
           <!-- 페이지 목록 -->
             <li th:each="page: ${#numbers.sequence(start, last)}" th:classappend="${page == todayFlowerByFlowerLang.number + 1} ? 'active'" class="page-item">
-              <a th:text="${page}" th:href="@{/todayFlowerByFlowerLang(page=${page})}" class="page-link"></a>
+              <a th:text="${page}" th:href="@{/todayFlowerByFlowerLang(lang=${form.lang}, page=${page})}" class="page-link"></a>
             </li>
             <!-- 다음 페이지 -->
             <li th:classappend="${todayFlowerByFlowerLang.last} ? 'disabled'" class="page-item">
-              <a th:href="${todayFlowerByFlowerLang.last} ? '#' : @{/todayFlowerByFlowerLang(page=${todayFlowerByFlowerLang.number + 2})}" aria-label="Next" class="page-link">
+              <a th:href="${todayFlowerByFlowerLang.last} ? '#' : @{/todayFlowerByFlowerLang(lang=${form.lang}, page=${todayFlowerByFlowerLang.number + 2})}" aria-label="Next" class="page-link">
                 <span aria-hidden="true">&gt;</span>
               </a>
             </li>
             <!-- 마지막 페이지-->
             <li class="page-item">
-              <a th:href="@{/todayFlowerByFlowerLang(page=${todayFlowerByFlowerLang.totalPages})}" aria-label="Last" class="page-link">
+              <a th:href="@{/todayFlowerByFlowerLang(lang=${form.lang}, page=${todayFlowerByFlowerLang.totalPages})}" aria-label="Last" class="page-link">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>

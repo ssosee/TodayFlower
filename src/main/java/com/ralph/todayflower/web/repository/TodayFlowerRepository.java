@@ -109,12 +109,6 @@ public class TodayFlowerRepository {
         int page = (pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
         pageable = PageRequest.of(page, 5);
 
-        log.info("offset = "+pageable.getOffset());
-        log.info("pageSize = "+pageable.getPageSize());
-        log.info("pageNumber = "+pageable.getPageNumber());
-        log.info("page = "+page);
-
-
         List<TodayFlower> result = jpaQueryFactory
                 .selectFrom(qTodayFlower)
                 .where(qTodayFlower.lang.contains(lang))
@@ -138,16 +132,31 @@ public class TodayFlowerRepository {
      * @param name
      * @return
      */
-    public List<TodayFlower> findByName(String name) {
+    public Page<TodayFlower> findByName(Pageable pageable, String name) {
 
         JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(em);
         QTodayFlower qTodayFlower = QTodayFlower.todayFlower;
 
-        return jpaQueryFactory
+        //뷰에서 page[1]을 누르면 offset[0]부터 하도록 함.
+        //뷰에 보이는 page는 1부터, 쿼리는 0부터
+        int page = (pageable.getPageNumber() == 0 ? 0 : pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 5);
+
+        List<TodayFlower> result = jpaQueryFactory
                 .selectFrom(qTodayFlower)
                 .where(qTodayFlower.name.contains(name))
-                .orderBy(qTodayFlower.dataNo.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(qTodayFlower.dataNo.asc())
                 .fetch();
+
+        List<TodayFlower> count = jpaQueryFactory
+                .select(qTodayFlower)
+                .from(qTodayFlower)
+                .where(qTodayFlower.lang.contains(name))
+                .fetch();
+
+        return new PageImpl<>(result, pageable, count.size());
     }
 
 }

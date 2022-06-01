@@ -23,9 +23,9 @@ public class TodayFlowerRepositoryTest {
 
     @Test
     public void 페이징_테스트() {
-        PageRequest pageRequest = PageRequest.of(0, 10);
+        PageRequest pageRequest = PageRequest.of(0, 5);
         Page<TodayFlower> todayFlowers = todayFlowerRepository.findByLangPage(pageRequest, "사랑");
-        assertThat(todayFlowers.get().count()).isEqualTo(10);
+        assertThat(todayFlowers.get().count()).isEqualTo(5);
     }
 
 }

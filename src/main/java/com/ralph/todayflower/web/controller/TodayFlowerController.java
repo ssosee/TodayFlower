@@ -3,6 +3,7 @@ package com.ralph.todayflower.web.controller;
 import com.ralph.todayflower.callapi.service.NihhsTodayFlowerApiService;
 import com.ralph.todayflower.web.controller.form.SearchFormTodayFlowerByDate;
 import com.ralph.todayflower.web.controller.form.SearchFromTodayFlowerByLang;
+import com.ralph.todayflower.web.controller.form.SearchFromTodayFlowerByName;
 import com.ralph.todayflower.web.controller.form.TodayFlowerForm;
 import com.ralph.todayflower.web.domain.TodayFlower;
 import com.ralph.todayflower.web.service.TodayFlowerService;
@@ -68,5 +69,19 @@ public class TodayFlowerController {
         model.addAttribute("todayFlowerByFlowerLang", todayFlowerPage);
 
         return "todayFlowerByFlowerLang";
+    }
+
+    @GetMapping("/todayFlowerByFlowerName")
+    public String getTodayFlowerByFlowerName(@ModelAttribute("form") @Valid SearchFromTodayFlowerByName form,
+                                             Pageable pageable,
+                                             Model model, BindingResult result) {
+        if(result.hasErrors()) {
+            return "todayFlowerByFlowerName";
+        }
+
+        Page<TodayFlower> todayFlowerPage = todayFlowerService.findByNamePage(pageable, form.getName());
+        model.addAttribute("todayFlowerByFlowerName", todayFlowerPage);
+
+        return "todayFlowerByFlowerName";
     }
 }
