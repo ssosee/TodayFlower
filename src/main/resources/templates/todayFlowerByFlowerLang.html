@@ -17,7 +17,7 @@
 <div class="container">
 
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-success bg-opacity-25">
+    <nav class="navbar navbar-expand-lg navbar-light bg-opacity-25">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">&#128197; <b>오늘의 꽃</b> &#127801;</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -68,7 +68,7 @@
                 <td th:text="${byLang.getDataNo()}"></td>
                 <td style="text-align: center">
                   <a th:href="'/todayFlowerByDate?month=' + ${byLang.getMonth()} + '&day='+${byLang.getDay()}">
-                    <img th:src="${byLang.getImgUrl1()}" style="width: 75%;" data-bs-toggle="tooltip" data-bs-placement="left" title="자세히 알아보기">
+                    <img th:src="${byLang.getImgUrl1()}" style="width: 109px; height: 84px" data-bs-toggle="tooltip" data-bs-placement="left" title="자세히 알아보기">
                   </a>
                 </td>
                 <td th:text="${byLang.getName()}"></td>
