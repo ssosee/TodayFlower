@@ -26,10 +26,14 @@
 
 
 
-<img width="414" height="736" alt="스크린샷 2022-06-15 오전 2 34 14" src="https://user-images.githubusercontent.com/42672362/173641871-4830aa50-69e2-4c41-9718-592b7600d2cc.png">
-
-<img width="414" height="736" alt="image" src="https://user-images.githubusercontent.com/42672362/173648736-db5ef0b5-5e8e-4933-94b7-bb4e07baae05.png">
+<img width="414" alt="image" src="https://user-images.githubusercontent.com/42672362/173652161-a145e46d-2b2b-4204-8f00-b81e823da421.png">
 
 
-<img width="414" height="736" alt="image" src="https://user-images.githubusercontent.com/42672362/173648155-19b6f264-3a5f-42de-8452-19852eaab617.png">
+<img width="414" alt="image" src="https://user-images.githubusercontent.com/42672362/173648736-db5ef0b5-5e8e-4933-94b7-bb4e07baae05.png">
+
+
+<img width="414" alt="image" src="https://user-images.githubusercontent.com/42672362/173651521-ae84ec2e-cbe6-450e-be5f-e2be9a1b553f.png">
+
+
+<img width="414" alt="image" src="https://user-images.githubusercontent.com/42672362/173648155-19b6f264-3a5f-42de-8452-19852eaab617.png">
 
